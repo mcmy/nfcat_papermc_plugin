@@ -29,7 +29,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         super.onEnable();
-        getLogger().info("Welcome use nfcat plugin,init plugin");
+        getLogger().info("start init nfcat plugin,init plugin");
 
         try (InputStream ci = getClassLoader().getResourceAsStream("config.properties");
              InputStream di = getClassLoader().getResourceAsStream("dbcp.properties")) {
@@ -38,16 +38,23 @@ public class Main extends JavaPlugin {
             dbcpProp.load(di);
             JdbcDBCP.init(dbcpProp);
         } catch (Exception ex) {
+            getServer().getPluginManager().disablePlugin(this);
             throw new RuntimeException(ex);
         }
 
         plugin = this;
-
         getServer().getPluginManager().registerEvents(new NfcatLoginListener(), this);
-        se("nfcat", new Menu());
+
+        se("nfcat", new BiNfcat());
+        se("menu", new BiMenu());
+        se("shop", new BiShop());
+        se("bank", new BiBank());
+
         se("login", new Login());
         se("register", new Register());
         se("changepass", new ChangePass());
+
+        getLogger().info("Welcome use nfcat plugin");
     }
 
     private void se(String command, CommandExecutor executor) {

@@ -26,6 +26,17 @@ commands:
     usage: /m 命令(?) 参数(?)
     aliases:
       - m
+  nfcat:
+    description: 云服务操作内容
+    usage: /nf 命令(?)
+    aliases:
+      - nf
+  shop:
+    description: 商店
+    usage: /shop 命令(?)
+  bank:
+    description: 银行
+    usage: /bank 命令(?)
 
 
 #permissions:

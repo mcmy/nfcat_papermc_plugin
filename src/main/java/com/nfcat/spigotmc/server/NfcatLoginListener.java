@@ -30,11 +30,10 @@ public final class NfcatLoginListener implements Listener {
             3, 10,
             0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingDeque<>(10));
-
-
+    
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerJoinEvent event) {
-        event.getPlayer().sendTitle("tip:", "欢迎加入服务器 输入/l登录 输入/r注册", 10, 600, 20);
+        event.getPlayer().sendTitle("服务器官网:nfcat.com", "登录:/l <密码> 注册:/r <密码> <重复密码>", 10, 600, 20);
         noLoginUser.put(event.getPlayer().getName(), new Dt(event.getPlayer(), event.getPlayer().getGameMode(), event.getPlayer().getLocation()));
         event.getPlayer().setGameMode(GameMode.SPECTATOR);
         pool.execute(new LoginRunnable(event));
