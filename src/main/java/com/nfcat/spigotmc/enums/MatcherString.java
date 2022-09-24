@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 @Getter
 public enum MatcherString {
     USERNAME("^[.]?[a-zA-Z0-9_@-]{3,15}$"),
-    PASSWORD("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$"),
+    PASSWORD("^(?=.*\\d)(?=.*[a-zA-Z]).{6,20}$"),
     EMAIL("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"),
     PHONE("^(13[0-9]|14[5|7]|15[0-9]|18[0-3|5-9])\\d{8}$"),
     DOMAIN("^[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\\.?$"),

@@ -12,11 +12,11 @@ public class Login implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!MatcherString.matcher(MatcherString.USERNAME, commandSender.getName())) {
-            Bukkit.broadcastMessage("账号格式错误,请修改账号");
+            commandSender.sendMessage("账号格式错误,请修改账号");
             return true;
         }
         if (!MatcherString.matcher(MatcherString.PASSWORD, strings[0])) {
-            Bukkit.broadcastMessage("密码格式错误");
+            commandSender.sendMessage("密码格式错误");
             return true;
         }
         if (Manager.login(commandSender.getName(), strings[0])) {

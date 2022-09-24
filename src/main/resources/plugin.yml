@@ -4,9 +4,6 @@ version: 1.0.2
 author: nfcat.com
 
 commands:
-  helpme:
-    description: 帮助命令 --- 主菜单->mfcat(m|menu)|登录->login(l)|注册->register(r)|修改密码->changepass(c)
-    usage: /helpme 命令
   login:
     description: 登录命令
     usage: /l 密码
@@ -24,29 +21,29 @@ commands:
     usage: /c 原密码 新密码 重复新密码
     aliases:
       - c
-  nfcat:
-    description: 命令执行 输入helpme获取帮助
-    usage: /m 命令 参数
+  nemu:
+    description: 命令执行 输入/menu 获取帮助
+    usage: /m 命令(?) 参数(?)
     aliases:
       - m
-      - menu
 
-permissions:
-  man.*:
-    description: Gives access to all doorman commands #给予使用man所有命令的权限
-    children:  #子权限节点
-      man.kick: true
-      man.ban: true
-      man.knock: true
-      man.denied: false
-  man.kick:
-    description: Allows you to kick a user  #允许你踢出一名用户
-    default: op  #OP默认拥有该权限
-  man.ban:
-    description: Allows you to ban a user  #允许你封禁一名用户
-    default: op #OP默认拥有该权限
-  man.knock:
-    description: Knocks on the door! #敲门
-    default: true #全员默认拥有该权限
-  man.denied:
-    description: Prevents this user from entering the door  #禁止拥有该权限节点的用户进入门内
+
+#permissions:
+#  man.*:
+#    description: Gives access to all doorman commands #给予使用man所有命令的权限
+#    children:  #子权限节点
+#      man.kick: true
+#      man.ban: true
+#      man.knock: true
+#      man.denied: false
+#  man.kick:
+#    description: Allows you to kick a user  #允许你踢出一名用户
+#    default: op  #OP默认拥有该权限
+#  man.ban:
+#    description: Allows you to ban a user  #允许你封禁一名用户
+#    default: op #OP默认拥有该权限
+#  man.knock:
+#    description: Knocks on the door! #敲门
+#    default: true #全员默认拥有该权限
+#  man.denied:
+#    description: Prevents this user from entering the door  #禁止拥有该权限节点的用户进入门内

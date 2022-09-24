@@ -102,15 +102,17 @@ public final class NfcatLoginListener implements Listener {
         @Override
         public void run() {
             try {
-                for (int i = 0; i <= 50; i++) {
-                    if (!noLoginUser.containsKey(username)) {
+                for (int i = 0; i <= 30; i++) {
+                    if (noLoginUser.containsKey(username)) {
+                        event.getPlayer().setGameMode(GameMode.SPECTATOR);
+                    } else {
                         break;
                     }
-                    Thread.sleep(1000);
-                    if (i >= 50 && noLoginUser.containsKey(username)) {
+                    if (i >= 30 && noLoginUser.containsKey(username)) {
                         loginFail(event.getPlayer(), "登录超时");
                         break;
                     }
+                    Thread.sleep(1000);
                 }
             } catch (InterruptedException e) {
                 loginFail(event.getPlayer(), e.getMessage());

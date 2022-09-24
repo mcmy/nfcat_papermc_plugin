@@ -44,8 +44,7 @@ public class Main extends JavaPlugin {
         plugin = this;
 
         getServer().getPluginManager().registerEvents(new NfcatLoginListener(), this);
-        se("helpme", new HelpMe());
-        se("nfcat", new Nfcat());
+        se("nfcat", new Menu());
         se("login", new Login());
         se("register", new Register());
         se("changepass", new ChangePass());

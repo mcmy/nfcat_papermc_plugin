@@ -12,15 +12,15 @@ public class Register implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!MatcherString.matcher(MatcherString.USERNAME,commandSender.getName())){
-            Bukkit.broadcastMessage("账号格式错误,请修改账号");
+            commandSender.sendMessage("账号格式错误,请修改账号");
             return true;
         }
         if (!strings[0].equals(strings[1])) {
-            Bukkit.broadcastMessage("2次密码不一致");
+            commandSender.sendMessage("2次密码不一致");
             return true;
         }
         if (!MatcherString.matcher(MatcherString.PASSWORD,strings[0])){
-            Bukkit.broadcastMessage("密码过于简单");
+            commandSender.sendMessage("密码过于简单");
             return true;
         }
         if (Manager.register(commandSender.getName(), strings[0])) {

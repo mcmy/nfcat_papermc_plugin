@@ -11,14 +11,14 @@ public class ChangePass implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!MatcherString.matcher(MatcherString.PASSWORD, strings[0])) {
-            Bukkit.broadcastMessage("密码格式错误");
+            commandSender.sendMessage("密码格式错误");
             return true;
         }
         if (Manager.changepass(commandSender.getName(), strings[0], strings[1])) {
-            Bukkit.broadcastMessage("密码修改成功");
+            commandSender.sendMessage("密码修改成功");
             return true;
         }
-        Bukkit.broadcastMessage("密码修改失败");
+        commandSender.sendMessage("密码修改失败");
         return true;
     }
 }

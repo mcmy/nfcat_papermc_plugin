@@ -35,7 +35,6 @@ public class Manager {
                     .prepareStatement("SELECT * from nf_mc_user where mc_name=? && password=?");
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, NfUtils.pwdEncrypt(password, Main.configProp.getProperty("salt", "")));
-            System.out.println(NfUtils.pwdEncrypt(password, Main.configProp.getProperty("salt", "")));
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 return true;
