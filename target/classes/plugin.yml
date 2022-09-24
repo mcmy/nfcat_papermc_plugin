@@ -26,12 +26,27 @@ commands:
       - c
   nfcat:
     description: 命令执行 输入helpme获取帮助
-    usage: /n 命令 参数
+    usage: /m 命令 参数
     aliases:
-      - n
+      - m
       - menu
 
 permissions:
-  MessageBox.allPlayer:
-    description: MessageBox all player permissions.
-    default: true
+  man.*:
+    description: Gives access to all doorman commands #给予使用man所有命令的权限
+    children:  #子权限节点
+      man.kick: true
+      man.ban: true
+      man.knock: true
+      man.denied: false
+  man.kick:
+    description: Allows you to kick a user  #允许你踢出一名用户
+    default: op  #OP默认拥有该权限
+  man.ban:
+    description: Allows you to ban a user  #允许你封禁一名用户
+    default: op #OP默认拥有该权限
+  man.knock:
+    description: Knocks on the door! #敲门
+    default: true #全员默认拥有该权限
+  man.denied:
+    description: Prevents this user from entering the door  #禁止拥有该权限节点的用户进入门内
