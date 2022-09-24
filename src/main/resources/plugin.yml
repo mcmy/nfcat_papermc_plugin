@@ -2,6 +2,8 @@ name: NFCAT_PLUGIN
 main: com.nfcat.papermc.Main
 version: 1.0.2
 author: nfcat.com
+description: 一个自己用的小插件
+website: https://nfcat.com
 
 commands:
   login:
@@ -41,6 +43,7 @@ commands:
   card:
     description: 卡密系统
     usage: /card help
+
 
 
 #permissions:

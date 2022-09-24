@@ -72,6 +72,4 @@ public class Main extends JavaPlugin {
         if (help == null) getLogger().info("no " + command);
         if (help != null) help.setExecutor(executor);
     }
-
-
 }
