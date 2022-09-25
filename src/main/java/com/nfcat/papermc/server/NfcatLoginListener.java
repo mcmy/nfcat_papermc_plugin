@@ -182,7 +182,12 @@ public final class NfcatLoginListener implements Listener {
 
     }
 
-    public record WelcomeCallable(String name) implements Callable<Boolean> {
+    public static final class WelcomeCallable implements Callable<Boolean> {
+        private final String name;
+
+        public WelcomeCallable(String name) {
+            this.name = name;
+        }
 
         @Override
         public Boolean call() {
@@ -198,5 +203,29 @@ public final class NfcatLoginListener implements Listener {
                                     Duration.ofSeconds(1))));
             return true;
         }
+
+        public String name() {
+            return name;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) return true;
+            if (obj == null || obj.getClass() != this.getClass()) return false;
+            var that = (WelcomeCallable) obj;
+            return Objects.equals(this.name, that.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
+        }
+
+        @Override
+        public String toString() {
+            return "WelcomeCallable[" +
+                    "name=" + name + ']';
+        }
+
     }
 }
