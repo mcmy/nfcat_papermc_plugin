@@ -1,7 +1,7 @@
-package com.nfcat.spigotmc.commands.user;
+package com.nfcat.papermc.commands.user;
 
-import com.nfcat.spigotmc.enums.MatcherString;
-import com.nfcat.spigotmc.sql.SQLManager;
+import com.nfcat.papermc.enums.MatcherString;
+import com.nfcat.papermc.sql.SQLManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

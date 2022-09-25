@@ -1,4 +1,4 @@
-package com.nfcat.spigotmc.enums;
+package com.nfcat.papermc.enums;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;

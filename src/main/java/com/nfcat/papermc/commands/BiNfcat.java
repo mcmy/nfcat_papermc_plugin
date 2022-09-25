@@ -1,4 +1,4 @@
-package com.nfcat.spigotmc.commands;
+package com.nfcat.papermc.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

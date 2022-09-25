@@ -1,4 +1,4 @@
-package com.nfcat.spigotmc.utils;
+package com.nfcat.papermc.utils;
 
 
 import org.jetbrains.annotations.Contract;

@@ -1,4 +1,4 @@
-package com.nfcat.spigotmc.exception;
+package com.nfcat.papermc.exception;
 
 import lombok.Getter;
 

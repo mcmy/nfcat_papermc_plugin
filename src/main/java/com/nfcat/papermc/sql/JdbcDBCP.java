@@ -1,9 +1,8 @@
-package com.nfcat.spigotmc.sql;
+package com.nfcat.papermc.sql;
 
 import org.apache.commons.dbcp.BasicDataSourceFactory;
 
 import javax.sql.DataSource;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

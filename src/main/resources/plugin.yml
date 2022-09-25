@@ -1,43 +1,7 @@
 name: NFCAT_PLUGIN
-main: com.nfcat.spigotmc.Main
+main: com.nfcat.papermc.Main
 version: 1.0.2
 author: nfcat.com
-
-#commands:
-#  login:
-#    description: 登录命令
-#    usage: /l <password>
-#    aliases:
-#      - l
-#      - log
-#  register:
-#    description: 注册命令
-#    usage: /r <password> <repeatNewPassword>
-#    aliases:
-#      - r
-#      - reg
-#  changepass:
-#    description: 修改密码命令
-#    usage: /c <oldPassword> <newPassword> <repeatNewPassword>
-#    aliases:
-#      - c
-#  nemu:
-#    description: 命令执行 输入/menu 获取帮助
-#    usage: /menu 1|2
-#    aliases:
-#      - m
-#  nfcat:
-#    description: 云服务操作内容
-#    usage: /nf bind|unbind|info
-#    aliases:
-#      - nf
-#  shop:
-#    description: 商店
-#    usage: /shop list
-#  bank:
-#    description: 银行
-#    usage: /bank list
-
 
 commands:
   login:

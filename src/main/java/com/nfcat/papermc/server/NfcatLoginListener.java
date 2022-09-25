@@ -1,18 +1,20 @@
-package com.nfcat.spigotmc.server;
+package com.nfcat.papermc.server;
 
-import com.nfcat.spigotmc.Main;
+import com.nfcat.papermc.Main;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -20,19 +22,33 @@ import java.util.concurrent.*;
 
 public final class NfcatLoginListener implements Listener {
 
-    public static Map<String, Dt> noLoginUser = new ConcurrentHashMap<>();
+    public static final Map<String, Dt> noLoginUser = new ConcurrentHashMap<>();
 
-    ThreadPoolExecutor pool = new ThreadPoolExecutor(
+    private static final ThreadPoolExecutor pool = new ThreadPoolExecutor(
             3, 10,
             0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingDeque<>(10));
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerJoinEvent event) {
-        event.getPlayer().sendTitle("服务器官网:nfcat.com", "登录:/l <密码> 注册:/r <密码> <重复密码>", 10, 600, 20);
-        noLoginUser.put(event.getPlayer().getName(), new Dt(event.getPlayer(), event.getPlayer().getGameMode(), event.getPlayer().getLocation()));
+        event.getPlayer().showTitle(
+                Title.title(Component.text("服务器官网:nfcat.com"),
+                        Component.text("登录:/l <密码> 注册:/r <密码> <重复密码>"),
+                        Title.Times.times(
+                                Duration.ofSeconds(1),
+                                Duration.ofSeconds(60),
+                                Duration.ofSeconds(1))));
+        noLoginUser.put(event.getPlayer().getName(),
+                new Dt(event.getPlayer(), event.getPlayer().getGameMode()));
         event.getPlayer().setGameMode(GameMode.SPECTATOR);
+
         pool.execute(new LoginRunnable(event));
+    }
+
+    public static void removeNoLoginUser(Player player) {
+        Dt dt = noLoginUser.get(player.getName());
+        player.setGameMode(dt.getGameMode());
+        noLoginUser.remove(player.getName());
     }
 
     @EventHandler
@@ -70,19 +86,12 @@ public final class NfcatLoginListener implements Listener {
         Bukkit.getScheduler().callSyncMethod(Main.plugin, new WelcomeCallable(name));
     }
 
-    public static void removeNoLoginUser(Player player) {
-        Dt dt = noLoginUser.get(player.getName());
-        player.setGameMode(dt.getGameMode());
-        noLoginUser.remove(player.getName());
-    }
-
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     static class Dt {
         public Player player;
         public GameMode gameMode;
-        public Location location;
     }
 
     static class LoginRunnable implements Runnable {
@@ -120,7 +129,7 @@ public final class NfcatLoginListener implements Listener {
         @Override
         public Boolean call() {
             removeNoLoginUser(player);
-            player.kickPlayer(string);
+            player.kick(Component.text(string));
             return true;
         }
     }
@@ -132,7 +141,13 @@ public final class NfcatLoginListener implements Listener {
             Player player = Bukkit.getPlayer(name);
             if (player == null) return false;
             removeNoLoginUser(player);
-            player.sendTitle("", "欢迎回家：" + player.getName() + " 输入/m 打开菜单", 10, 72, 20);
+            player.showTitle(
+                    Title.title(Component.text(""),
+                            Component.text("欢迎回家：" + player.getName() + " 输入/m 打开菜单"),
+                            Title.Times.times(
+                                    Duration.ofSeconds(1),
+                                    Duration.ofSeconds(2),
+                                    Duration.ofSeconds(1))));
             return true;
         }
     }

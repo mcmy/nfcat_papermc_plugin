@@ -1,8 +1,8 @@
-package com.nfcat.spigotmc.sql;
+package com.nfcat.papermc.sql;
 
-import com.nfcat.spigotmc.Main;
-import com.nfcat.spigotmc.exception.FailedVerificationException;
-import com.nfcat.spigotmc.utils.NfUtils;
+import com.nfcat.papermc.Main;
+import com.nfcat.papermc.exception.FailedVerificationException;
+import com.nfcat.papermc.utils.NfUtils;
 import org.junit.Test;
 
 import java.io.InputStream;

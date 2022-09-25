@@ -1,4 +1,4 @@
-package com.nfcat.spigotmc.utils;
+package com.nfcat.papermc.utils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.ObjectUtils;
