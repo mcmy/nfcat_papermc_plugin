@@ -69,12 +69,22 @@ public final class NfcatLoginListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void p2(PlayerCommandPreprocessEvent event) {
-        if (noLoginUser.containsKey(event.getPlayer().getName())) {
-            String msg = event.getMessage();
+        String msg = event.getMessage();
+        if (event.getPlayer().getGameMode() == GameMode.SPECTATOR
+                && noLoginUser.containsKey(event.getPlayer().getName())) {
             for (String s : canUseCommand) {
                 if (msg.startsWith(s)) return;
             }
             event.setCancelled(true);
+        }
+        if (event.getPlayer().isOp()) {
+            for (String s : Main.forbiddenCommand) {
+                if (msg.startsWith(s)) {
+                    event.setCancelled(true);
+                    event.getPlayer().sendMessage("服务器已禁止使用此命令");
+                    return;
+                }
+            }
         }
     }
 

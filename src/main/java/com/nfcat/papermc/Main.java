@@ -11,9 +11,13 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 public class Main extends JavaPlugin {
+
+   public static final List<String> forbiddenCommand = Arrays.asList("/op ", "/deop", "/summon ");
 
     public static Properties configProp = new Properties();
     public static JavaPlugin plugin;
