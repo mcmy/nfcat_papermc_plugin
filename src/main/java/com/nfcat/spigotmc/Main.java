@@ -1,6 +1,9 @@
 package com.nfcat.spigotmc;
 
 import com.nfcat.spigotmc.commands.*;
+import com.nfcat.spigotmc.commands.user.ChangePass;
+import com.nfcat.spigotmc.commands.user.Login;
+import com.nfcat.spigotmc.commands.user.Register;
 import com.nfcat.spigotmc.server.NfcatLoginListener;
 import com.nfcat.spigotmc.sql.JdbcDBCP;
 import org.bukkit.command.CommandExecutor;
