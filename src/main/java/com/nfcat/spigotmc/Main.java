@@ -3,7 +3,6 @@ package com.nfcat.spigotmc;
 import com.nfcat.spigotmc.commands.*;
 import com.nfcat.spigotmc.server.NfcatLoginListener;
 import com.nfcat.spigotmc.sql.JdbcDBCP;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,8 +44,8 @@ public class Main extends JavaPlugin {
         plugin = this;
         getServer().getPluginManager().registerEvents(new NfcatLoginListener(), this);
 
-        se("nfcat", new BiNfcat());
-        se("menu", new BiMenu());
+        se("m", new BiMenu());
+        se("nf", new BiNfcat());
         se("shop", new BiShop());
         se("bank", new BiBank());
 
@@ -58,7 +57,8 @@ public class Main extends JavaPlugin {
     }
 
     private void se(String command, CommandExecutor executor) {
-        PluginCommand help = Bukkit.getPluginCommand(command);
+        PluginCommand help = getCommand(command);
+        if (help == null) getLogger().info("no " + command);
         if (help != null) help.setExecutor(executor);
     }
 

@@ -3,6 +3,42 @@ main: com.nfcat.spigotmc.Main
 version: 1.0.2
 author: nfcat.com
 
+#commands:
+#  login:
+#    description: 登录命令
+#    usage: /l <password>
+#    aliases:
+#      - l
+#      - log
+#  register:
+#    description: 注册命令
+#    usage: /r <password> <repeatNewPassword>
+#    aliases:
+#      - r
+#      - reg
+#  changepass:
+#    description: 修改密码命令
+#    usage: /c <oldPassword> <newPassword> <repeatNewPassword>
+#    aliases:
+#      - c
+#  nemu:
+#    description: 命令执行 输入/menu 获取帮助
+#    usage: /menu 1|2
+#    aliases:
+#      - m
+#  nfcat:
+#    description: 云服务操作内容
+#    usage: /nf bind|unbind|info
+#    aliases:
+#      - nf
+#  shop:
+#    description: 商店
+#    usage: /shop list
+#  bank:
+#    description: 银行
+#    usage: /bank list
+
+
 commands:
   login:
     description: 登录命令
@@ -21,16 +57,16 @@ commands:
     usage: /c 原密码 新密码 重复新密码
     aliases:
       - c
-  nemu:
+  m:
     description: 命令执行 输入/menu 获取帮助
     usage: /m 命令(?) 参数(?)
     aliases:
-      - m
-  nfcat:
+      - menu
+  nf:
     description: 云服务操作内容
     usage: /nf 命令(?)
     aliases:
-      - nf
+      - nfcat
   shop:
     description: 商店
     usage: /shop 命令(?)
@@ -58,3 +94,13 @@ commands:
 #    default: true #全员默认拥有该权限
 #  man.denied:
 #    description: Prevents this user from entering the door  #禁止拥有该权限节点的用户进入门内
+
+
+#permissions:
+#  test*:
+#    description: Gives access to all doorman commands  //翻译见上
+#    children:
+#      test.kick: true
+#      test.ban: true
+#      test.knock: true
+#      test.denied: false
