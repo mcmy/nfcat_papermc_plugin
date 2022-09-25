@@ -11,7 +11,6 @@ import java.util.Arrays;
 public class BiMenu implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
-        Bukkit.getLogger().info(s + Arrays.asList(strings));
         if (strings.length == 0) return send(commandSender, menu);
         return switch (strings[0]) {
             case "1" -> send(commandSender, menu1);
