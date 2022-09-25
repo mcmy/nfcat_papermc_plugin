@@ -18,6 +18,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.*;
 
 public final class NfcatLoginListener implements Listener {
@@ -134,7 +135,14 @@ public final class NfcatLoginListener implements Listener {
         }
     }
 
-    public record KickCallable(Player player, String string) implements Callable<Boolean> {
+    public static final class KickCallable implements Callable<Boolean> {
+        private final Player player;
+        private final String string;
+
+        public KickCallable(Player player, String string) {
+            this.player = player;
+            this.string = string;
+        }
 
         @Override
         public Boolean call() {
@@ -142,6 +150,36 @@ public final class NfcatLoginListener implements Listener {
             player.kick(Component.text(string));
             return true;
         }
+
+        public Player player() {
+            return player;
+        }
+
+        public String string() {
+            return string;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) return true;
+            if (obj == null || obj.getClass() != this.getClass()) return false;
+            var that = (KickCallable) obj;
+            return Objects.equals(this.player, that.player) &&
+                    Objects.equals(this.string, that.string);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(player, string);
+        }
+
+        @Override
+        public String toString() {
+            return "KickCallable[" +
+                    "player=" + player + ", " +
+                    "string=" + string + ']';
+        }
+
     }
 
     public record WelcomeCallable(String name) implements Callable<Boolean> {
