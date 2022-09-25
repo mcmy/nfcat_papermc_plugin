@@ -1,0 +1,9 @@
+如果不能访问papermc导入包，请导入此jar，并删除pom.xml其中内容
+
+
+        <dependency>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.19.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>

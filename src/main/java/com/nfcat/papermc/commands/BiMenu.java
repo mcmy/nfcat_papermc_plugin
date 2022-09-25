@@ -1,12 +1,9 @@
 package com.nfcat.papermc.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
 
 public class BiMenu implements CommandExecutor {
     @Override
