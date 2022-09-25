@@ -14,23 +14,19 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public final class NfcatLoginListener implements Listener {
 
-    public static volatile Map<String, Dt> noLoginUser = new HashMap<>();
+    public static Map<String, Dt> noLoginUser = new ConcurrentHashMap<>();
 
     ThreadPoolExecutor pool = new ThreadPoolExecutor(
             3, 10,
             0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingDeque<>(10));
-    
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerJoinEvent event) {
         event.getPlayer().sendTitle("服务器官网:nfcat.com", "登录:/l <密码> 注册:/r <密码> <重复密码>", 10, 600, 20);
