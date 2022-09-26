@@ -74,6 +74,11 @@
             <version>8.0.30</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.39.3.0</version>
+        </dependency>
 
         <dependency>
             <groupId>com.aventrix.jnanoid</groupId>

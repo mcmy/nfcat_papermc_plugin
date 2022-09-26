@@ -6,6 +6,7 @@ import com.nfcat.papermc.commands.user.Login;
 import com.nfcat.papermc.commands.user.Register;
 import com.nfcat.papermc.server.NfcatLoginListener;
 import com.nfcat.papermc.sql.JdbcDBCP;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,6 +36,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         super.onEnable();
+        plugin = this;
         getLogger().info("start init nfcat plugin,init plugin");
 
         try (InputStream ci = getClassLoader().getResourceAsStream("config.properties");
@@ -48,7 +50,6 @@ public class Main extends JavaPlugin {
             throw new RuntimeException(ex);
         }
 
-        plugin = this;
         getServer().getPluginManager().registerEvents(new NfcatLoginListener(), this);
 
         se("m", new BiMenu());

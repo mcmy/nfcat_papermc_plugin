@@ -1,3 +1,6 @@
+修改dbcp配置文件
+导入sql文件
+
 如果不能访问papermc导入包，请导入此jar，并删除pom.xml其中内容
 
 

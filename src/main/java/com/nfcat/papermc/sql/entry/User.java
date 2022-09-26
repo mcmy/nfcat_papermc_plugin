@@ -7,7 +7,6 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class User {
-    private int id;
     @JSONField(name = "mc_name")
     private String mcName;
     private String password;

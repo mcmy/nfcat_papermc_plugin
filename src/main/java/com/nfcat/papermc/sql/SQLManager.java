@@ -29,9 +29,8 @@ public class SQLManager {
         username = username.toLowerCase().trim();
         try {
             Connection connection = JdbcDBCP.getConnection();
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement(
-                            "UPDATE nf_mc_user SET gold=gold+? WHERE mc_name=?");
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "UPDATE nf_mc_user SET gold=gold+? WHERE mc_name=?");
             preparedStatement.setInt(1, addGold);
             preparedStatement.setString(2, username);
             int n = preparedStatement.executeUpdate();
@@ -39,6 +38,7 @@ public class SQLManager {
                 return true;
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new FailedVerificationException("未知错误");
         }
         return false;
