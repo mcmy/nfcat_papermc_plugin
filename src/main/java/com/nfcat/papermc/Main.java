@@ -4,6 +4,7 @@ import com.nfcat.papermc.commands.*;
 import com.nfcat.papermc.commands.user.ChangePass;
 import com.nfcat.papermc.commands.user.Login;
 import com.nfcat.papermc.commands.user.Register;
+import com.nfcat.papermc.data.PlayerData;
 import com.nfcat.papermc.listener.NfcatLoginListener;
 import com.nfcat.papermc.sql.JdbcDBCP;
 import org.bukkit.command.CommandExecutor;
@@ -14,10 +15,12 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Main extends JavaPlugin {
 
-   public static final List<String> forbiddenCommand = Arrays.asList("/op ", "/deop", "/summon ");
+    public static final List<String> forbiddenCommand = Arrays.asList("/op ", "/deop", "/summon ");
+    public static final List<PlayerData> playerDataList = new CopyOnWriteArrayList<>();
 
     public static Properties configProp = new Properties();
     public static JavaPlugin plugin;

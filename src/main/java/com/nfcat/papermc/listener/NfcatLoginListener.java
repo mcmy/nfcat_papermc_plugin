@@ -1,6 +1,7 @@
 package com.nfcat.papermc.listener;
 
 import com.nfcat.papermc.Main;
+import com.nfcat.papermc.data.PlayerData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -59,6 +60,7 @@ public final class NfcatLoginListener implements Listener {
 
     @EventHandler
     public void p1(PlayerQuitEvent event) {
+        Main.playerDataList.remove(new PlayerData().setPlayer(event.getPlayer()));
         if (noLoginUser.containsKey(event.getPlayer().getName())) {
             removeNoLoginUser(event.getPlayer());
         }
@@ -150,6 +152,9 @@ public final class NfcatLoginListener implements Listener {
             Player player = Bukkit.getPlayer(name);
             if (player == null) return false;
             removeNoLoginUser(player);
+            Main.playerDataList.add(new PlayerData()
+                    .setPlayer(player)
+                    .setUsername(name));
             player.showTitle(
                     Title.title(Component.text(""),
                             Component.text("欢迎回家：" + player.getName() + " 输入/m 打开菜单"),
