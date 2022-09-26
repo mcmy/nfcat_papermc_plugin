@@ -4,9 +4,8 @@ import com.nfcat.papermc.commands.*;
 import com.nfcat.papermc.commands.user.ChangePass;
 import com.nfcat.papermc.commands.user.Login;
 import com.nfcat.papermc.commands.user.Register;
-import com.nfcat.papermc.server.NfcatLoginListener;
+import com.nfcat.papermc.listener.NfcatLoginListener;
 import com.nfcat.papermc.sql.JdbcDBCP;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -52,10 +51,11 @@ public class Main extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new NfcatLoginListener(), this);
 
-        se("m", new BiMenu());
-        se("nf", new BiNfcat());
+        se("menu", new BiMenu());
+        se("nfcat", new BiNfcat());
         se("shop", new BiShop());
         se("bank", new BiBank());
+        se("card", new BiCard());
 
         se("login", new Login());
         se("register", new Register());

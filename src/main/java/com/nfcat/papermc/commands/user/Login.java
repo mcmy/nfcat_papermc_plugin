@@ -1,7 +1,7 @@
 package com.nfcat.papermc.commands.user;
 
 import com.nfcat.papermc.enums.MatcherString;
-import com.nfcat.papermc.server.NfcatLoginListener;
+import com.nfcat.papermc.listener.NfcatLoginListener;
 import com.nfcat.papermc.sql.SQLManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

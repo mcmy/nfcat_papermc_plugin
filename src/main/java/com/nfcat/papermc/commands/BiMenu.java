@@ -39,6 +39,7 @@ public class BiMenu implements CommandExecutor {
             /nf <command>(?)云服务
             /shop <command>(?) 商店
             /bank <command>(?) 银行
+            /card <command>(?) 卡密系统
             -
             第1页/共2页
             ------------

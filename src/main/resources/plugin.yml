@@ -21,22 +21,26 @@ commands:
     usage: /c 原密码 新密码 重复新密码
     aliases:
       - c
-  m:
+  menu:
     description: 命令执行 输入/menu 获取帮助
-    usage: /m 命令(?) 参数(?)
+    usage: /m 参数(?)
     aliases:
-      - menu
-  nf:
+      - m
+  nfcat:
     description: 云服务操作内容
-    usage: /nf 命令(?)
+    usage: /n help
     aliases:
-      - nfcat
+      - n
+      - nf
   shop:
     description: 商店
-    usage: /shop 命令(?)
+    usage: /shop help
   bank:
     description: 银行
-    usage: /bank 命令(?)
+    usage: /bank help
+  card:
+    description: 卡密系统
+    usage: /card help
 
 
 #permissions:
