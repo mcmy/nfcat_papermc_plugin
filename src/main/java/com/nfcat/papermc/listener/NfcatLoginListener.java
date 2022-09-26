@@ -32,16 +32,20 @@ public final class NfcatLoginListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerJoinEvent event) {
-        event.getPlayer().showTitle(
+        Player player = event.getPlayer();
+        Main.playerDataList.add(new PlayerData()
+                .setPlayer(player)
+                .setUsername(player.getName()));
+        player.showTitle(
                 Title.title(Component.text("服务器官网:nfcat.com"),
                         Component.text("登录:/l <密码> 注册:/r <密码> <重复密码>"),
                         Title.Times.times(
                                 Duration.ofSeconds(1),
                                 Duration.ofSeconds(60),
                                 Duration.ofSeconds(1))));
-        noLoginUser.put(event.getPlayer().getName(),
-                new Dt(event.getPlayer(), event.getPlayer().getGameMode()));
-        event.getPlayer().setGameMode(GameMode.SPECTATOR);
+        noLoginUser.put(player.getName(),
+                new Dt(player, player.getGameMode()));
+        player.setGameMode(GameMode.SPECTATOR);
         pool.execute(new LoginRunnable(event));
     }
 
@@ -60,7 +64,7 @@ public final class NfcatLoginListener implements Listener {
 
     @EventHandler
     public void p1(PlayerQuitEvent event) {
-        Main.playerDataList.remove(new PlayerData().setPlayer(event.getPlayer()));
+        Main.playerDataList.remove(new PlayerData().setUsername(event.getPlayer().getName()));
         if (noLoginUser.containsKey(event.getPlayer().getName())) {
             removeNoLoginUser(event.getPlayer());
         }
@@ -123,7 +127,7 @@ public final class NfcatLoginListener implements Listener {
                     } else {
                         break;
                     }
-                    if (i >= 30 && noLoginUser.containsKey(username)) {
+                    if (i == 30 && noLoginUser.containsKey(username)) {
                         loginFail(event.getPlayer(), "登录超时");
                         break;
                     }
@@ -152,9 +156,6 @@ public final class NfcatLoginListener implements Listener {
             Player player = Bukkit.getPlayer(name);
             if (player == null) return false;
             removeNoLoginUser(player);
-            Main.playerDataList.add(new PlayerData()
-                    .setPlayer(player)
-                    .setUsername(name));
             player.showTitle(
                     Title.title(Component.text(""),
                             Component.text("欢迎回家：" + player.getName() + " 输入/m 打开菜单"),
