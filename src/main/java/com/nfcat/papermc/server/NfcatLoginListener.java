@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -40,7 +41,7 @@ public final class NfcatLoginListener implements Listener {
                                 Duration.ofSeconds(60),
                                 Duration.ofSeconds(1))));
         noLoginUser.put(event.getPlayer().getName(),
-                new Dt(event.getPlayer(), event.getPlayer().getGameMode()));
+                new Dt(event.getPlayer(), event.getPlayer().getGameMode(), event.getPlayer().getLocation()));
         event.getPlayer().setGameMode(GameMode.SPECTATOR);
         pool.execute(new LoginRunnable(event));
     }
@@ -102,6 +103,7 @@ public final class NfcatLoginListener implements Listener {
     static class Dt {
         public Player player;
         public GameMode gameMode;
+        public Location location;
     }
 
     static class LoginRunnable implements Runnable {
@@ -126,6 +128,7 @@ public final class NfcatLoginListener implements Listener {
                         loginFail(event.getPlayer(), "登录超时");
                         break;
                     }
+                    Bukkit.getScheduler().callSyncMethod(Main.plugin, new Tp(event.getPlayer()));
                     Thread.sleep(1000);
                 }
             } catch (InterruptedException e) {
@@ -145,6 +148,7 @@ public final class NfcatLoginListener implements Listener {
 
         @Override
         public Boolean call() {
+            player.teleport(noLoginUser.get(player.getName()).getLocation());
             removeNoLoginUser(player);
             player.kick(Component.text(string));
             return true;
@@ -181,6 +185,44 @@ public final class NfcatLoginListener implements Listener {
 
     }
 
+    public static final class Tp implements Callable<Boolean> {
+        private final Player player;
+
+        public Tp(Player player) {
+            this.player = player;
+        }
+
+        @Override
+        public Boolean call() {
+            player.teleport(noLoginUser.get(player.getName()).getLocation());
+            return true;
+        }
+
+        public Player player() {
+            return player;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) return true;
+            if (obj == null || obj.getClass() != this.getClass()) return false;
+            var that = (Tp) obj;
+            return Objects.equals(this.player, that.player);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(player);
+        }
+
+        @Override
+        public String toString() {
+            return "Tp[" +
+                    "player=" + player + ']';
+        }
+
+    }
+
     public static final class WelcomeCallable implements Callable<Boolean> {
         private final String name;
 
@@ -192,6 +234,7 @@ public final class NfcatLoginListener implements Listener {
         public Boolean call() {
             Player player = Bukkit.getPlayer(name);
             if (player == null) return false;
+            player.teleport(noLoginUser.get(player.getName()).getLocation());
             removeNoLoginUser(player);
             player.showTitle(
                     Title.title(Component.text(""),
