@@ -1,16 +1,15 @@
 package com.nfcat.papermc.sql;
 
+import com.alibaba.fastjson.JSONObject;
 import com.nfcat.papermc.Main;
 import com.nfcat.papermc.exception.FailedVerificationException;
+import com.nfcat.papermc.sql.entry.User;
 import com.nfcat.papermc.utils.NfUtils;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Properties;
+import java.sql.*;
+import java.util.*;
 
 public class SQLManager {
 
@@ -23,7 +22,42 @@ public class SQLManager {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-        System.out.println(login("PuppetK", "Aoyiqi253"));
+        System.out.println(addGold("puppetk", 10));
+    }
+
+    public static boolean addGold(String username, int addGold) {
+        username = username.toLowerCase().trim();
+        try {
+            Connection connection = JdbcDBCP.getConnection();
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement(
+                            "UPDATE nf_mc_user SET gold=gold+? WHERE mc_name=?");
+            preparedStatement.setInt(1, addGold);
+            preparedStatement.setString(2, username);
+            int n = preparedStatement.executeUpdate();
+            if (n > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new FailedVerificationException("未知错误");
+        }
+        return false;
+    }
+
+    public static User selectInfo(String username) {
+        username = username.toLowerCase().trim();
+        try {
+            Connection connection = JdbcDBCP.getConnection();
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("SELECT * FROM nf_mc_user WHERE mc_name=?");
+            preparedStatement.setString(1, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            Map<String, Object> map = converResultSetToMap(rs);
+            if (map == null) return null;
+            return JSONObject.toJavaObject(new JSONObject(map), User.class);
+        } catch (SQLException e) {
+            throw new FailedVerificationException("未知错误");
+        }
     }
 
     public static boolean login(String username, String password) {
@@ -83,5 +117,36 @@ public class SQLManager {
             throw new FailedVerificationException("修改密码失败，未知错误");
         }
         return false;
+    }
+
+    private static List<Map<String, Object>> converResultSetToList(ResultSet resultSet) throws SQLException {
+        if (null == resultSet) {
+            return null;
+        }
+        List<Map<String, Object>> data = new ArrayList<>();
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        while (resultSet.next()) {
+            Map<String, Object> rowData = new HashMap<String, Object>();
+            for (int i = 0, columnCount = rsmd.getColumnCount(); i < columnCount; i++) {
+                rowData.put(rsmd.getColumnName(i + 1), resultSet.getObject(i + 1));
+            }
+            data.add(rowData);
+        }
+        return data;
+    }
+
+    private static Map<String, Object> converResultSetToMap(ResultSet resultSet) throws SQLException {
+        if (null == resultSet) {
+            return null;
+        }
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        if (resultSet.next()) {
+            Map<String, Object> rowData = new HashMap<>();
+            for (int i = 0, columnCount = rsmd.getColumnCount(); i < columnCount; i++) {
+                rowData.put(rsmd.getColumnName(i + 1), resultSet.getObject(i + 1));
+            }
+            return rowData;
+        }
+        return null;
     }
 }

@@ -42,7 +42,6 @@ public final class NfcatLoginListener implements Listener {
         noLoginUser.put(event.getPlayer().getName(),
                 new Dt(event.getPlayer(), event.getPlayer().getGameMode()));
         event.getPlayer().setGameMode(GameMode.SPECTATOR);
-
         pool.execute(new LoginRunnable(event));
     }
 
