@@ -41,6 +41,9 @@ commands:
   card:
     description: 卡密系统
     usage: /card help
+  money:
+    description: 经济系统
+    usage: /money help
 
 
 #permissions:
