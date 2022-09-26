@@ -26,7 +26,7 @@ public final class NfcatLoginListener implements Listener {
     public static final Map<String, Dt> noLoginUser = new ConcurrentHashMap<>();
 
     private static final ThreadPoolExecutor pool = new ThreadPoolExecutor(
-            3, 10,
+            3, 15,
             0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingDeque<>(10));
 
@@ -46,7 +46,11 @@ public final class NfcatLoginListener implements Listener {
         noLoginUser.put(player.getName(),
                 new Dt(player, player.getGameMode()));
         player.setGameMode(GameMode.SPECTATOR);
-        pool.execute(new LoginRunnable(event));
+        try {
+            pool.execute(new LoginRunnable(event));
+        } catch (Exception e) {
+            loginFail(player, "当前登录人数太多");
+        }
     }
 
     public static void removeNoLoginUser(Player player) {
