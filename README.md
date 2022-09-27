@@ -1,1 +1,1 @@
-# nfcat_spigot_plugin
+# nfcat_papermc_plugin
