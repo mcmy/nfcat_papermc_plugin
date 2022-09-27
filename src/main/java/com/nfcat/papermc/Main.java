@@ -4,14 +4,12 @@ import com.nfcat.papermc.commands.bank.Bank;
 import com.nfcat.papermc.commands.card.Card;
 import com.nfcat.papermc.commands.cloud.Nfcat;
 import com.nfcat.papermc.commands.menu.Menu;
-import com.nfcat.papermc.commands.money.Money;
 import com.nfcat.papermc.commands.shop.Shop;
 import com.nfcat.papermc.commands.user.ChangePass;
 import com.nfcat.papermc.commands.user.Login;
 import com.nfcat.papermc.commands.user.Register;
 import com.nfcat.papermc.data.PlayerData;
 import com.nfcat.papermc.listener.NfcatLoginListener;
-import com.nfcat.papermc.sql.JdbcDBCP;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -46,12 +44,8 @@ public class Main extends JavaPlugin {
         plugin = this;
         getLogger().info("start init nfcat plugin,init plugin");
 
-        try (InputStream ci = getClassLoader().getResourceAsStream("config.properties");
-             InputStream di = getClassLoader().getResourceAsStream("dbcp.properties")) {
+        try (InputStream ci = getClassLoader().getResourceAsStream("config.properties")) {
             configProp.load(ci);
-            Properties dbcpProp = new Properties();
-            dbcpProp.load(di);
-            JdbcDBCP.init(dbcpProp);
         } catch (Exception ex) {
             getServer().getPluginManager().disablePlugin(this);
             throw new RuntimeException(ex);
@@ -64,8 +58,6 @@ public class Main extends JavaPlugin {
         se("shop", new Shop());
         se("bank", new Bank());
         se("card", new Card());
-        se("money",new Money());
-
 
         se("login", new Login());
         se("register", new Register());

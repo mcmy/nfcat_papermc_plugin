@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfcat.papermc.sql.mapper.NfMcUserMapper">
+    <resultMap id="BaseMap" type="com.nfcat.papermc.sql.entry.NfMcUser">
+        <id column="mc_name" property="mcName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="gold" property="gold" jdbcType="BIGINT"/>
+        <result column="cloud_nano_id" property="cloudNanoId" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="BaseColumns">
+        mc_name, password, gold, cloud_nano_id
+    </sql>
+    <insert id="insert" parameterType="com.nfcat.papermc.sql.entry.NfMcUser">
+        insert into nf_mc_user
+        (password, mc_name, gold, cloud_nano_id)
+        values
+        (#{password,jdbcType=VARCHAR}, #{mcName,jdbcType=VARCHAR}, #{gold,jdbcType=BIGINT},
+        #{cloudNanoId,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.nfcat.papermc.sql.entry.NfMcUser">
+        insert into nf_mc_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="password != null">
+                password,
+            </if>
+            <if test="mcName != null">
+                mc_name,
+            </if>
+            <if test="gold != null">
+                gold,
+            </if>
+            <if test="cloudNanoId != null">
+                cloud_nano_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="mcName != null">
+                #{mcName,jdbcType=VARCHAR},
+            </if>
+            <if test="gold != null">
+                #{gold,jdbcType=BIGINT},
+            </if>
+            <if test="cloudNanoId != null">
+                #{cloudNanoId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.nfcat.papermc.sql.entry.NfMcUser">
+        update nf_mc_user
+        set
+        password = #{password,jdbcType=VARCHAR},
+        mc_name = #{mcName,jdbcType=VARCHAR},
+        gold = #{gold,jdbcType=BIGINT},
+        cloud_nano_id = #{cloudNanoId,jdbcType=VARCHAR}
+        where mc_name = #{mcName,jdbcType=VARCHAR}
+    </update>
+    <update id="updateSelective" parameterType="com.nfcat.papermc.sql.entry.NfMcUser">
+        update nf_mc_user
+        <set>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="mcName != null">
+                mc_name = #{mcName,jdbcType=VARCHAR},
+            </if>
+            <if test="gold != null">
+                gold = #{gold,jdbcType=BIGINT},
+            </if>
+            <if test="cloudNanoId != null">
+                cloud_nano_id = #{cloudNanoId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where mc_name = #{mcName,jdbcType=VARCHAR}
+    </update>
+    <select id="queryOne" resultMap="BaseMap" parameterType="String">
+        select
+        <include refid="BaseColumns"/>
+        from nf_mc_user a
+        where a.mc_name = #{mcName,jdbcType=VARCHAR}
+    </select>
+    <delete id="delete" parameterType="String">
+        delete from nf_mc_user where mc_name = #{mcName,jdbcType=VARCHAR}
+    </delete>
+    <select id="login" parameterType="String" resultType="Boolean">
+        SELECT count(mc_name)
+        FROM nf_mc_user
+        WHERE mc_name = #{mcName,jdbcType=VARCHAR}
+        AND password = #{password,jdbcType=VARCHAR}
+    </select>
+    <update id="changepass" parameterType="String">
+        UPDATE nf_mc_user
+        SET password= #{password,jdbcType=VARCHAR}
+        WHERE mc_name = #{mcName,jdbcType=VARCHAR}
+        AND password = #{oldPassword,jdbcType=VARCHAR}
+    </update>
+    <update id="addGold" parameterType="Object">
+        UPDATE nf_mc_user
+        SET gold= gold + #{addGold,jdbcType=BIGINT}
+        WHERE mc_name = #{mcName,jdbcType=VARCHAR}
+    </update>
+</mapper>
