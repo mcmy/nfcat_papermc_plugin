@@ -10,7 +10,8 @@ public class User {
     @JSONField(name = "mc_name")
     private String mcName;
     private String password;
-    private Integer gold;
+    private long gold;
     @JSONField(name = "cloud_nano_id")
     private String cloudNanoId;
+    private long nmb;
 }

@@ -15,8 +15,9 @@ public class BiCard implements CommandExecutor {
                 return send(commandSender, "请输入卡密");
             }
             case "info" -> {
+                String s1="tellraw"+commandSender.getName().toString()+ "{\"text\":\"点我打开 nfcat.com\",\"clickEvent\":{\"action\":\"open_url,\"value\":\"https://nfcat.com/\"}}";
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), """
-                        tellraw PuppetK {"text":"点我打开 nfcat.com","clickEvent":{"action":"open_url","value":"https://nfcat.com/"}}
+                        tellraw moc {"text":"点我打开 nfcat.com","clickEvent":{"action":"open_url","value":"https://nfcat.com/"}}
                         """);
             }
             default -> send(commandSender, menu);
