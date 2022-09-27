@@ -12,7 +12,7 @@ public class SQLManager {
 
     @Test
     public void t() {
-        System.out.println(addGold("PuppetK", -50L));
+        System.out.println(addGold("PuppetK", 50L));
     }
 
     public static boolean addGold(String username, Long addGold) {
@@ -52,7 +52,7 @@ public class SQLManager {
 
         SqlSession sqlSession = MybatisConfig.getSqlSession();
         NfMcUserMapper mapper = sqlSession.getMapper(NfMcUserMapper.class);
-        int i = mapper.insert(new NfMcUser().setMcName(username).setPassword(password));
+        int i = mapper.insertSelective(new NfMcUser().setMcName(username).setPassword(password));
         sqlSession.close();
         return i != 0;
     }

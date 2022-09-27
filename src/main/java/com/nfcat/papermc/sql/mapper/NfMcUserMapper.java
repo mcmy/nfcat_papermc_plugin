@@ -28,9 +28,9 @@ public interface NfMcUserMapper {
 
     int delete(String mcName);
 
-    boolean login(String mcName, String password);
+    boolean login(@Param("mcName") String mcName, @Param("password") String password);
 
-    int changepass(String mcName, String oldPassword, String password);
+    int changepass(@Param("mcName") String mcName, @Param("oldPassword") String oldPassword, @Param("password") String password);
 
     int addGold(@Param("mcName") String mcName, @Param("addGold") Long addGold);
 
