@@ -86,15 +86,6 @@ public final class NfcatLoginListener implements Listener {
             }
             event.setCancelled(true);
         }
-        if (event.getPlayer().isOp()) {
-            for (String s : Main.forbiddenCommand) {
-                if (msg.startsWith(s)) {
-                    event.setCancelled(true);
-                    event.getPlayer().sendMessage("服务器已禁止使用此命令");
-                    return;
-                }
-            }
-        }
     }
 
     public static void loginFail(Player player, String info) {

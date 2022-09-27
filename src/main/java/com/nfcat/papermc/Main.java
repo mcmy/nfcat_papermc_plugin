@@ -10,20 +10,20 @@ import com.nfcat.papermc.commands.user.ChangePass;
 import com.nfcat.papermc.commands.user.Login;
 import com.nfcat.papermc.commands.user.Register;
 import com.nfcat.papermc.data.PlayerData;
+import com.nfcat.papermc.listener.DisableInstructionListener;
 import com.nfcat.papermc.listener.NfcatLoginListener;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Main extends JavaPlugin {
 
-    public static final List<String> forbiddenCommand = Arrays.asList("/op ", "/deop", "/summon ");
     public static final List<PlayerData> playerDataList = new CopyOnWriteArrayList<>();
 
     public static Properties configProp = new Properties();
@@ -45,21 +45,23 @@ public class Main extends JavaPlugin {
         plugin = this;
         getLogger().info("start init nfcat plugin,init plugin");
 
+        PluginManager pluginManager = getServer().getPluginManager();
         try (InputStream ci = getClassLoader().getResourceAsStream("config.properties")) {
             configProp.load(ci);
         } catch (Exception ex) {
-            getServer().getPluginManager().disablePlugin(this);
+            pluginManager.disablePlugin(this);
             throw new RuntimeException(ex);
         }
 
-        getServer().getPluginManager().registerEvents(new NfcatLoginListener(), this);
+        pluginManager.registerEvents(new NfcatLoginListener(), this);
+        pluginManager.registerEvents(new DisableInstructionListener(), this);
 
         se("menu", new Menu());
         se("nfcat", new Nfcat());
         se("shop", new Shop());
         se("bank", new Bank());
         se("card", new Card());
-        se("money",new Money());
+        se("money", new Money());
 
         se("login", new Login());
         se("register", new Register());
