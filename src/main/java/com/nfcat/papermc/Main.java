@@ -1,7 +1,7 @@
 package com.nfcat.papermc;
 
 import com.nfcat.papermc.commands.*;
-import com.nfcat.papermc.commands.Money.Money;
+import com.nfcat.papermc.commands.money.Money;
 import com.nfcat.papermc.commands.user.ChangePass;
 import com.nfcat.papermc.commands.user.Login;
 import com.nfcat.papermc.commands.user.Register;
