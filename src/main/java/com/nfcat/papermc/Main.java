@@ -1,6 +1,7 @@
 package com.nfcat.papermc;
 
 import com.nfcat.papermc.commands.bank.Bank;
+import com.nfcat.papermc.commands.bank.Money;
 import com.nfcat.papermc.commands.card.Card;
 import com.nfcat.papermc.commands.cloud.Nfcat;
 import com.nfcat.papermc.commands.menu.Menu;
@@ -58,6 +59,7 @@ public class Main extends JavaPlugin {
         se("shop", new Shop());
         se("bank", new Bank());
         se("card", new Card());
+        se("money",new Money());
 
         se("login", new Login());
         se("register", new Register());

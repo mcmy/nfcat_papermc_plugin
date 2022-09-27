@@ -9,6 +9,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="NfcatPaperMcPlugin" />
+        <module name="paper_plugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
