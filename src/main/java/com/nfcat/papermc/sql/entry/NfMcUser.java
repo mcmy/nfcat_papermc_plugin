@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 /**
  * @author MybatisHelperPro
- * @since 2022/09/27 14:40
+ * @since 2022/09/27 15:57
  */
 @Data
 @Accessors(chain = true)
@@ -24,4 +24,5 @@ public class NfMcUser implements Serializable {
     /**     * 密码     */    private String password;
     /**     * 金币     */    private Long gold;
     /**     * 水晶     */    private Long crystal;
+    /**     * 信息     */    private String info;
 }

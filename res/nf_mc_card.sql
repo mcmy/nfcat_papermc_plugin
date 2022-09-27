@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2022-09-27 16:16:07
+-- 生成日期： 2022-09-27 16:15:51
 -- 服务器版本： 8.0.12
 -- PHP 版本： 5.6.9
 
@@ -25,16 +25,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 表的结构 `nf_mc_user`
+-- 表的结构 `nf_mc_card`
 --
 
-CREATE TABLE `nf_mc_user` (
-  `mc_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'mc用户名',
-  `cloud_nano_id` varchar(24) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '对接云服务id',
-  `password` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `gold` bigint(11) NOT NULL DEFAULT '10' COMMENT '金币',
-  `crystal` bigint(11) NOT NULL DEFAULT '0' COMMENT '水晶',
-  `info` text COMMENT '信息'
+CREATE TABLE `nf_mc_card` (
+  `card` varchar(32) NOT NULL COMMENT '卡密',
+  `type` int(11) NOT NULL DEFAULT '1' COMMENT '1->金币;2->水晶;3->VIP;4->SVIP',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `use_time` datetime DEFAULT NULL COMMENT '使用时间',
+  `use_mc_name` varchar(20) DEFAULT NULL COMMENT '使用者名称',
+  `info` text COMMENT '其他信息'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -42,10 +42,10 @@ CREATE TABLE `nf_mc_user` (
 --
 
 --
--- 表的索引 `nf_mc_user`
+-- 表的索引 `nf_mc_card`
 --
-ALTER TABLE `nf_mc_user`
-  ADD PRIMARY KEY (`mc_name`);
+ALTER TABLE `nf_mc_card`
+  ADD PRIMARY KEY (`card`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

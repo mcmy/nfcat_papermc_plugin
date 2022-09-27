@@ -28,6 +28,10 @@ public interface NfMcUserMapper {
 
     int delete(String mcName);
 
+    NfMcUser selectUser(String mcName);
+
+    String selectUserOtherInfo(String mcName);
+
     boolean login(@Param("mcName") String mcName, @Param("password") String password);
 
     int changepass(@Param("mcName") String mcName, @Param("oldPassword") String oldPassword, @Param("password") String password);

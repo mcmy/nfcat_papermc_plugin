@@ -2,7 +2,7 @@ package com.nfcat.papermc.commands.user;
 
 import com.nfcat.papermc.enums.MatcherString;
 import com.nfcat.papermc.listener.NfcatLoginListener;
-import com.nfcat.papermc.sql.SQLManager;
+import com.nfcat.papermc.sql.manager.UserSQLManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +24,7 @@ public class Register implements CommandExecutor {
             commandSender.sendMessage("密码过于简单");
             return true;
         }
-        if (SQLManager.register(commandSender.getName(), strings[0])) {
+        if (UserSQLManager.register(commandSender.getName(), strings[0])) {
             NfcatLoginListener.loginSuccess(commandSender.getName());
             return true;
         }

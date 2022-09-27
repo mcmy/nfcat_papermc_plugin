@@ -1,10 +1,9 @@
 package com.nfcat.papermc.commands.bank;
 
 import com.nfcat.papermc.configs.MybatisConfig;
-import com.nfcat.papermc.sql.SQLManager;
+import com.nfcat.papermc.sql.manager.UserSQLManager;
 import com.nfcat.papermc.sql.entry.NfMcUser;
 import com.nfcat.papermc.sql.mapper.NfMcUserMapper;
-import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,7 +17,7 @@ public class Money implements CommandExecutor {
 
         switch (strings[0]){
             case "select"->{
-                NfMcUser nfMcUser = SQLManager.selectInfo(commandSender.getName());
+                NfMcUser nfMcUser = UserSQLManager.selectUser(commandSender.getName());
                 commandSender.sendMessage("你的金币余额为："+nfMcUser.getGold());
                 commandSender.sendMessage("你的水晶余额为："+nfMcUser.getCrystal());
                 return true;
@@ -30,9 +29,9 @@ public class Money implements CommandExecutor {
             }
             case "pay"->{
                 if (strings[3].equals("金币")){
-                    NfMcUser nfMcUser = SQLManager.selectInfo(commandSender.getName());
+                    NfMcUser nfMcUser = UserSQLManager.selectUser(commandSender.getName());
                     if (nfMcUser.getGold()>=Long.parseLong(strings[2])) {
-                        if (SQLManager.selectInfo(strings[2])==null){
+                        if (UserSQLManager.selectUser(strings[2])==null){
                             commandSender.sendMessage("请确认收款方信息并重试");
                             return true;
                         }
@@ -52,9 +51,9 @@ public class Money implements CommandExecutor {
                     }
 
                 }else if (strings[3].equals("水晶")){
-                        NfMcUser nfMcUser = SQLManager.selectInfo(commandSender.getName());
+                        NfMcUser nfMcUser = UserSQLManager.selectUser(commandSender.getName());
                         if (nfMcUser.getCrystal()>=Long.parseLong(strings[2])) {
-                            if (SQLManager.selectInfo(strings[2])==null){
+                            if (UserSQLManager.selectUser(strings[2])==null){
                                 commandSender.sendMessage("请确认收款方信息并重试");
                                 return true;
                             }

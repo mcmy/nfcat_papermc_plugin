@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nfcat.papermc.sql.mapper.NfMcCardMapper">
+    <resultMap id="BaseMap" type="com.nfcat.papermc.sql.entry.NfMcCard">
+        <id column="card" property="card" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="use_time" property="useTime" jdbcType="TIMESTAMP"/>
+        <result column="use_mc_name" property="useMcName" jdbcType="VARCHAR"/>
+        <result column="info" property="info" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="BaseColumns">
+      card, type, create_time, use_time, use_mc_name, info
+    </sql>
+    <insert id="insert" parameterType="com.nfcat.papermc.sql.entry.NfMcCard">
+        insert into nf_mc_card
+          (card, type, create_time, use_time, use_mc_name, info)
+        values
+          (#{card,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+          #{useTime,jdbcType=TIMESTAMP}, #{useMcName,jdbcType=VARCHAR}, #{info,jdbcType=LONGVARCHAR}
+          )
+    </insert>
+    <insert id="insertSelective" parameterType="com.nfcat.papermc.sql.entry.NfMcCard">
+        insert into nf_mc_card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="card != null">
+                card,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="useTime != null">
+                use_time,
+            </if>
+            <if test="useMcName != null">
+                use_mc_name,
+            </if>
+            <if test="info != null">
+                info,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="card != null">
+                #{card,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="useTime != null">
+                #{useTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="useMcName != null">
+                #{useMcName,jdbcType=VARCHAR},
+            </if>
+            <if test="info != null">
+                #{info,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.nfcat.papermc.sql.entry.NfMcCard">
+        update nf_mc_card
+        set
+            card = #{card,jdbcType=VARCHAR},
+            type = #{type,jdbcType=INTEGER},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            use_time = #{useTime,jdbcType=TIMESTAMP},
+            use_mc_name = #{useMcName,jdbcType=VARCHAR},
+            info = #{info,jdbcType=LONGVARCHAR}
+        where card = #{card,jdbcType=VARCHAR}
+    </update>
+    <update id="updateSelective" parameterType="com.nfcat.papermc.sql.entry.NfMcCard">
+        update nf_mc_card
+        <set>
+            <if test="card != null">
+                card = #{card,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="useTime != null">
+                use_time = #{useTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="useMcName != null">
+                use_mc_name = #{useMcName,jdbcType=VARCHAR},
+            </if>
+            <if test="info != null">
+                info = #{info,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where card = #{card,jdbcType=VARCHAR}
+    </update>
+    <select id="queryOne" resultMap="BaseMap" parameterType="String">
+        select
+        <include refid="BaseColumns"/>
+        from nf_mc_card a
+        where a.card = #{card,jdbcType=VARCHAR}
+    </select>
+    <delete id="delete" parameterType="String">
+        delete from nf_mc_card where card = #{card,jdbcType=VARCHAR}
+    </delete>
+</mapper>
