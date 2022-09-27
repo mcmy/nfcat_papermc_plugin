@@ -3,74 +3,83 @@
 <mapper namespace="com.nfcat.papermc.sql.mapper.NfMcUserMapper">
     <resultMap id="BaseMap" type="com.nfcat.papermc.sql.entry.NfMcUser">
         <id column="mc_name" property="mcName" jdbcType="VARCHAR"/>
+        <result column="cloud_nano_id" property="cloudNanoId" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="gold" property="gold" jdbcType="BIGINT"/>
-        <result column="cloud_nano_id" property="cloudNanoId" jdbcType="VARCHAR"/>
+        <result column="crystal" property="crystal" jdbcType="BIGINT"/>
     </resultMap>
     <sql id="BaseColumns">
-        mc_name, password, gold, cloud_nano_id
+        mc_name, cloud_nano_id, password, gold, crystal
     </sql>
     <insert id="insert" parameterType="com.nfcat.papermc.sql.entry.NfMcUser">
         insert into nf_mc_user
-        (password, mc_name, gold, cloud_nano_id)
-        values
-        (#{password,jdbcType=VARCHAR}, #{mcName,jdbcType=VARCHAR}, #{gold,jdbcType=BIGINT},
-        #{cloudNanoId,jdbcType=VARCHAR})
+            (mc_name, cloud_nano_id, password, gold, crystal)
+        values (#{mcName,jdbcType=VARCHAR}, #{cloudNanoId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{gold,jdbcType=BIGINT}, #{crystal,jdbcType=BIGINT})
     </insert>
     <insert id="insertSelective" parameterType="com.nfcat.papermc.sql.entry.NfMcUser">
         insert into nf_mc_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="password != null">
-                password,
-            </if>
             <if test="mcName != null">
                 mc_name,
-            </if>
-            <if test="gold != null">
-                gold,
             </if>
             <if test="cloudNanoId != null">
                 cloud_nano_id,
             </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="gold != null">
+                gold,
+            </if>
+            <if test="crystal != null">
+                crystal,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
-            </if>
             <if test="mcName != null">
                 #{mcName,jdbcType=VARCHAR},
+            </if>
+            <if test="cloudNanoId != null">
+                #{cloudNanoId,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
             </if>
             <if test="gold != null">
                 #{gold,jdbcType=BIGINT},
             </if>
-            <if test="cloudNanoId != null">
-                #{cloudNanoId,jdbcType=VARCHAR},
+            <if test="crystal != null">
+                #{crystal,jdbcType=BIGINT},
             </if>
         </trim>
     </insert>
     <update id="update" parameterType="com.nfcat.papermc.sql.entry.NfMcUser">
         update nf_mc_user
-        set
-        password = #{password,jdbcType=VARCHAR},
-        mc_name = #{mcName,jdbcType=VARCHAR},
-        gold = #{gold,jdbcType=BIGINT},
-        cloud_nano_id = #{cloudNanoId,jdbcType=VARCHAR}
+        set mc_name       = #{mcName,jdbcType=VARCHAR},
+            cloud_nano_id = #{cloudNanoId,jdbcType=VARCHAR},
+            password      = #{password,jdbcType=VARCHAR},
+            gold          = #{gold,jdbcType=BIGINT},
+            crystal       = #{crystal,jdbcType=BIGINT}
         where mc_name = #{mcName,jdbcType=VARCHAR}
     </update>
     <update id="updateSelective" parameterType="com.nfcat.papermc.sql.entry.NfMcUser">
         update nf_mc_user
         <set>
-            <if test="password != null">
-                password = #{password,jdbcType=VARCHAR},
-            </if>
             <if test="mcName != null">
                 mc_name = #{mcName,jdbcType=VARCHAR},
+            </if>
+            <if test="cloudNanoId != null">
+                cloud_nano_id = #{cloudNanoId,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
             </if>
             <if test="gold != null">
                 gold = #{gold,jdbcType=BIGINT},
             </if>
-            <if test="cloudNanoId != null">
-                cloud_nano_id = #{cloudNanoId,jdbcType=VARCHAR},
+            <if test="crystal != null">
+                crystal = #{crystal,jdbcType=BIGINT},
             </if>
         </set>
         where mc_name = #{mcName,jdbcType=VARCHAR}
@@ -82,23 +91,30 @@
         where a.mc_name = #{mcName,jdbcType=VARCHAR}
     </select>
     <delete id="delete" parameterType="String">
-        delete from nf_mc_user where mc_name = #{mcName,jdbcType=VARCHAR}
+        delete
+        from nf_mc_user
+        where mc_name = #{mcName,jdbcType=VARCHAR}
     </delete>
     <select id="login" parameterType="String" resultType="Boolean">
         SELECT count(mc_name)
         FROM nf_mc_user
         WHERE mc_name = #{mcName,jdbcType=VARCHAR}
-        AND password = #{password,jdbcType=VARCHAR}
+          AND password = #{password,jdbcType=VARCHAR}
     </select>
     <update id="changepass" parameterType="String">
         UPDATE nf_mc_user
         SET password= #{password,jdbcType=VARCHAR}
         WHERE mc_name = #{mcName,jdbcType=VARCHAR}
-        AND password = #{oldPassword,jdbcType=VARCHAR}
+          AND password = #{oldPassword,jdbcType=VARCHAR}
     </update>
     <update id="addGold" parameterType="Object">
         UPDATE nf_mc_user
         SET gold= gold + #{addGold,jdbcType=BIGINT}
+        WHERE mc_name = #{mcName,jdbcType=VARCHAR}
+    </update>
+    <update id="addCrystal" parameterType="Object">
+        UPDATE nf_mc_user
+        SET crystal= crystal + #{addCrystal,jdbcType=BIGINT}
         WHERE mc_name = #{mcName,jdbcType=VARCHAR}
     </update>
 </mapper>

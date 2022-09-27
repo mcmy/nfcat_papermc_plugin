@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * @author MybatisHelperPro
- * @since 2022/09/27 10:55
+ * @since 2022/09/27 14:40
  */
 public interface NfMcUserMapper {
 
@@ -34,4 +34,5 @@ public interface NfMcUserMapper {
 
     int addGold(@Param("mcName") String mcName, @Param("addGold") Long addGold);
 
+    int addCrystal(@Param("mcName") String mcName, @Param("addCrystal") Long addCrystal);
 }
