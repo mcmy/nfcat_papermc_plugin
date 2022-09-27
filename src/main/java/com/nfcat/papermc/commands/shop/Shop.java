@@ -1,11 +1,11 @@
-package com.nfcat.papermc.commands;
+package com.nfcat.papermc.commands.shop;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-public class BiBank implements CommandExecutor {
+public class Shop implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
         return false;

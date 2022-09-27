@@ -1,4 +1,4 @@
-package com.nfcat.papermc.commands;
+package com.nfcat.papermc.commands.card;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-public class BiCard implements CommandExecutor {
+public class Card implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
         if (strings.length < 2) return send(commandSender, menu);
@@ -15,7 +15,6 @@ public class BiCard implements CommandExecutor {
                 return send(commandSender, "请输入卡密");
             }
             case "info" -> {
-                String s1="tellraw"+commandSender.getName().toString()+ "{\"text\":\"点我打开 nfcat.com\",\"clickEvent\":{\"action\":\"open_url,\"value\":\"https://nfcat.com/\"}}";
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), """
                         tellraw moc {"text":"点我打开 nfcat.com","clickEvent":{"action":"open_url","value":"https://nfcat.com/"}}
                         """);

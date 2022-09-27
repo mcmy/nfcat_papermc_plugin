@@ -1,7 +1,11 @@
 package com.nfcat.papermc;
 
-import com.nfcat.papermc.commands.*;
+import com.nfcat.papermc.commands.bank.Bank;
+import com.nfcat.papermc.commands.card.Card;
+import com.nfcat.papermc.commands.cloud.Nfcat;
+import com.nfcat.papermc.commands.menu.Menu;
 import com.nfcat.papermc.commands.money.Money;
+import com.nfcat.papermc.commands.shop.Shop;
 import com.nfcat.papermc.commands.user.ChangePass;
 import com.nfcat.papermc.commands.user.Login;
 import com.nfcat.papermc.commands.user.Register;
@@ -55,11 +59,11 @@ public class Main extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new NfcatLoginListener(), this);
 
-        se("menu", new BiMenu());
-        se("nfcat", new BiNfcat());
-        se("shop", new BiShop());
-        se("bank", new BiBank());
-        se("card", new BiCard());
+        se("menu", new Menu());
+        se("nfcat", new Nfcat());
+        se("shop", new Shop());
+        se("bank", new Bank());
+        se("card", new Card());
         se("money",new Money());
 
 
