@@ -104,6 +104,14 @@ public class NfUtils {
         return randomCharacter(6, "0123456789");
     }
 
+    public static boolean isEquals(Object object1, Object object2) {
+        if (object1 == object2) {
+            return true;
+        } else {
+            return object1 != null && object1.equals(object2);
+        }
+    }
+
     public static @NotNull String ListToSeparatorString(String[] list, String separator) {
         if (ObjectUtils.isEmpty(list)) return "";
         StringBuilder stringBuilder = new StringBuilder();

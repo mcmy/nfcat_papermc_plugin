@@ -1,5 +1,6 @@
 package com.nfcat.papermc.data;
 
+import com.nfcat.papermc.utils.NfUtils;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.bukkit.entity.Player;
@@ -27,7 +28,7 @@ public final class PlayerData {
     public boolean equals(Object o) {
         if (o instanceof PlayerData playerData) {
             if (playerData == this) return true;
-            return playerData.getUsername().equals(username);
+            return NfUtils.isEquals(playerData.getUsername(), username);
         }
         return false;
     }
