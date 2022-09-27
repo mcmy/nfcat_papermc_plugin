@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2022-09-26 10:25:49
+-- 生成日期： 2022-09-27 14:45:07
 -- 服务器版本： 8.0.12
 -- PHP 版本： 5.6.9
 
@@ -29,10 +29,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `nf_mc_user` (
-  `password` varchar(128) NOT NULL,
-  `mc_name` varchar(20) NOT NULL,
+  `mc_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'mc用户名',
+  `cloud_nano_id` varchar(24) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '对接云服务id',
+  `password` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   `gold` bigint(11) NOT NULL DEFAULT '10' COMMENT '金币',
-  `cloud_nano_id` varchar(24) DEFAULT NULL COMMENT '对接云服务id'
+  `crystal` bigint(11) NOT NULL DEFAULT '0' COMMENT '水晶'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
