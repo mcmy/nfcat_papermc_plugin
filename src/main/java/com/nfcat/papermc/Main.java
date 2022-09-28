@@ -12,6 +12,7 @@ import com.nfcat.papermc.commands.user.Login;
 import com.nfcat.papermc.commands.user.Register;
 import com.nfcat.papermc.data.PlayerData;
 import com.nfcat.papermc.listener.DisableInstructionListener;
+import com.nfcat.papermc.listener.GuiShopListenter;
 import com.nfcat.papermc.listener.NfcatLoginListener;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -56,6 +57,7 @@ public class Main extends JavaPlugin {
 
         pluginManager.registerEvents(new NfcatLoginListener(), this);
         pluginManager.registerEvents(new DisableInstructionListener(), this);
+        pluginManager.registerEvents(new GuiShopListenter(),this);
 
         se("menu", new Menu());
         se("nfcat", new Nfcat());
