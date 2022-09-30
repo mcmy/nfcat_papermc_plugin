@@ -4,14 +4,15 @@ import com.nfcat.papermc.configs.MybatisConfig;
 import com.nfcat.papermc.sql.manager.UserSQLManager;
 import com.nfcat.papermc.sql.entry.NfMcUser;
 import com.nfcat.papermc.sql.mapper.NfMcUserMapper;
-import org.apache.ibatis.session.SqlSession;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.http.WebSocket;
+
 public class Money implements CommandExecutor {
-    private SqlSession sqlSession= MybatisConfig.getSqlSession();
+
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
 
@@ -35,8 +36,8 @@ public class Money implements CommandExecutor {
                             commandSender.sendMessage("请确认收款方信息并重试");
                             return true;
                         }
-                        NfMcUserMapper mapper = sqlSession.getMapper(NfMcUserMapper.class);
-                        int i1 = mapper.addGold(strings[1], 0 - Long.parseLong(strings[2]));
+                        NfMcUserMapper mapper = MybatisConfig.getSqlSession().getMapper(NfMcUserMapper.class);
+                        int i1 = mapper.addGold(strings[1], -Long.parseLong(strings[2]));
                         int i = mapper.addGold(strings[1], Long.parseLong(strings[2]));
                         if (i==1&&i1==1){
                             commandSender.sendMessage("支付成功");
@@ -57,9 +58,9 @@ public class Money implements CommandExecutor {
                                 commandSender.sendMessage("请确认收款方信息并重试");
                                 return true;
                             }
-                            NfMcUserMapper mapper = sqlSession.getMapper(NfMcUserMapper.class);
+                            NfMcUserMapper mapper = MybatisConfig.getSqlSession().getMapper(NfMcUserMapper.class);
                             int i = mapper.addCrystal(strings[1], Long.parseLong(strings[2]));
-                            int i1 = mapper.addCrystal(strings[1], 0 - Long.parseLong(strings[2]));
+                            int i1 = mapper.addCrystal(strings[1], -Long.parseLong(strings[2]));
                             if (i==1&&i1==0){
                                 commandSender.sendMessage("支付成功");
                                 return true;

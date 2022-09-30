@@ -29,7 +29,6 @@ public class GuiShop implements CommandExecutor {
         gui.setItem(10, domain);
         Player p = (Player) sender;
         p.openInventory(gui);
-
         return true;
     }
 }
