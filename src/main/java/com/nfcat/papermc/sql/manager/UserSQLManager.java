@@ -1,13 +1,35 @@
 package com.nfcat.papermc.sql.manager;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.nfcat.papermc.Main;
 import com.nfcat.papermc.configs.MybatisConfig;
+import com.nfcat.papermc.mapper.UserMapper;
 import com.nfcat.papermc.sql.entry.NfMcUser;
 import com.nfcat.papermc.sql.mapper.NfMcUserMapper;
 import com.nfcat.papermc.utils.NfUtils;
 import org.apache.ibatis.session.SqlSession;
 
 public class UserSQLManager {
+    public static boolean addcrystal(String username,Long addcrystal){
+        UserMapper mapper = MybatisConfig.getSqlSession().getMapper(UserMapper.class);
+        QueryWrapper<NfMcUser> Wrapper = new QueryWrapper<>();
+        NfMcUser user = new NfMcUser();
+        user.setMcName(username);
+        Wrapper.setEntity(user);
+        NfMcUser u = (NfMcUser) mapper.selectOne(Wrapper);
+        if (u==null){
+            return false;
+        }else {
+            u.setCrystal(u.getCrystal()+addcrystal);
+        }
+        int update = mapper.update(u, Wrapper);
+        if (update==1){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 
     /**
      * 增加金币 可负数
