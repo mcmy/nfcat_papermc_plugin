@@ -98,5 +98,27 @@ public class MocShopUtils {
         return shopobjs;
 
     }
+    public static Object fandshop(String shopname){
+        ShopMapper mapper = MybatisConfig.getSqlSession().getMapper(ShopMapper.class);
+        Shopentity shopentity = new Shopentity();
+        shopentity.setShopName(shopname);
+        QueryWrapper<Shopentity> wrapper = new QueryWrapper<>();
+        wrapper.setEntity(shopentity);
+        Shopentity shopentity1 = mapper.selectOne(wrapper);
+        if (shopentity1==null){
+            Shopentity s = new Shopentity();
+            s.setMcName(shopname);
+            QueryWrapper<Shopentity> wrapper1 = new QueryWrapper<>();
+            wrapper1.setEntity(s);
+            Shopentity shopentity2 = mapper.selectOne(wrapper1);
+            if (shopentity2==null){
+                return false;
+            }else {
+                return shopentity2;
+            }
+        }else{
+            return shopentity1;
+        }
+    }
 
 }
