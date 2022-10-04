@@ -19,17 +19,21 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
 
 public final class NfcatLoginListener implements Listener {
 
     public static final Map<String, Dt> noLoginUser = new ConcurrentHashMap<>();
 
+    private static final ThreadPoolExecutor pool = new ThreadPoolExecutor(
+            3, 15,
+            0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingDeque<>(15));
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (noLoginUser.size() > 15) {
+        if (pool.getTaskCount() > 15) {
             player.kick(Component.text("当前未登录人数过多，请稍后重试"));
         }
         Main.playerDataList.add(new PlayerData()
@@ -38,7 +42,7 @@ public final class NfcatLoginListener implements Listener {
         player.setGameMode(GameMode.SPECTATOR);
         LoginRunnable loginRunnable = new LoginRunnable(event);
         noLoginUser.put(player.getName(), new Dt(player, player.getGameMode(), loginRunnable));
-        loginRunnable.run();
+        pool.execute(loginRunnable);
         player.showTitle(
                 Title.title(Component.text("服务器官网:nfcat.com"),
                         Component.text("登录:/l <密码> 注册:/r <密码> <重复密码>"),
@@ -50,6 +54,7 @@ public final class NfcatLoginListener implements Listener {
 
     public static void removeNoLoginUser(Player player) {
         Dt dt = noLoginUser.get(player.getName());
+        pool.remove(dt.getLoginRunnable());
         player.setGameMode(dt.getGameMode());
         noLoginUser.remove(player.getName());
     }
