@@ -9,8 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.http.WebSocket;
-
 public class Money implements CommandExecutor {
 
     @Override
@@ -41,15 +39,13 @@ public class Money implements CommandExecutor {
                         int i = mapper.addGold(strings[1], Long.parseLong(strings[2]));
                         if (i==1&&i1==1){
                             commandSender.sendMessage("支付成功");
-                            return true;
                         }else {
                             commandSender.sendMessage("发生未知错误，请联系管理员");
-                            return true;
                         }
                     }else{
                         commandSender.sendMessage("余额不足");
-                        return true;
                     }
+                    return true;
 
                 }else if (strings[3].equals("水晶")){
                         NfMcUser nfMcUser = UserSQLManager.selectUser(commandSender.getName());

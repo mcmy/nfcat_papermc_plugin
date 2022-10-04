@@ -19,23 +19,26 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class NfcatLoginListener implements Listener {
 
     public static final Map<String, Dt> noLoginUser = new ConcurrentHashMap<>();
 
-    private static final ThreadPoolExecutor pool = new ThreadPoolExecutor(
-            3, 15,
-            0L, TimeUnit.MILLISECONDS,
-            new LinkedBlockingDeque<>(10));
-
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        if (noLoginUser.size() > 15) {
+            player.kick(Component.text("当前未登录人数过多，请稍后重试"));
+        }
         Main.playerDataList.add(new PlayerData()
                 .setPlayer(player)
                 .setUsername(player.getName()));
+        player.setGameMode(GameMode.SPECTATOR);
+        LoginRunnable loginRunnable = new LoginRunnable(event);
+        noLoginUser.put(player.getName(), new Dt(player, player.getGameMode(), loginRunnable));
+        loginRunnable.run();
         player.showTitle(
                 Title.title(Component.text("服务器官网:nfcat.com"),
                         Component.text("登录:/l <密码> 注册:/r <密码> <重复密码>"),
@@ -43,14 +46,6 @@ public final class NfcatLoginListener implements Listener {
                                 Duration.ofSeconds(1),
                                 Duration.ofSeconds(60),
                                 Duration.ofSeconds(1))));
-        noLoginUser.put(player.getName(),
-                new Dt(player, player.getGameMode()));
-        player.setGameMode(GameMode.SPECTATOR);
-        try {
-            pool.execute(new LoginRunnable(event));
-        } catch (Exception e) {
-            loginFail(player, "当前登录人数太多");
-        }
     }
 
     public static void removeNoLoginUser(Player player) {
@@ -102,6 +97,7 @@ public final class NfcatLoginListener implements Listener {
     static class Dt {
         public Player player;
         public GameMode gameMode;
+        public LoginRunnable loginRunnable;
     }
 
     static final class LoginRunnable implements Runnable {
