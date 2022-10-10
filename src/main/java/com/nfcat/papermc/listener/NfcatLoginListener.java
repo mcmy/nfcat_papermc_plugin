@@ -35,6 +35,7 @@ public final class NfcatLoginListener implements Listener {
         Player player = event.getPlayer();
         if (pool.getTaskCount() > 15) {
             player.kick(Component.text("当前未登录人数过多，请稍后重试"));
+            noLoginUser.forEach((s, dt) -> removeNoLoginUser(dt.getPlayer()));
         }
         Main.playerDataList.add(new PlayerData()
                 .setPlayer(player)
