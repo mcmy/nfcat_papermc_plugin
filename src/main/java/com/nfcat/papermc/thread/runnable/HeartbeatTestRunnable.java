@@ -7,6 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class HeartbeatTestRunnable extends BukkitRunnable {
 
+    // new Thread(new HeartbeatTestRunnable()).start();
     @Override
     public void run() {
         Bukkit.getScheduler().callSyncMethod(Main.plugin, new McWorld("测试线程传入主线程参数"));
