@@ -1,5 +1,6 @@
 package com.nfcat.papermc.commands.menu;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,6 +10,7 @@ public class Menu implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, String[] strings) {
         if (strings.length == 0) return send(commandSender, menu);
+//        Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"summon tnt");
         return switch (strings[0]) {
             case "1" -> send(commandSender, menu1);
             case "2" -> send(commandSender, menu2);

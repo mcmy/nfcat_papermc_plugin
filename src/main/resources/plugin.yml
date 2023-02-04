@@ -6,47 +6,11 @@ description: 一个自己用的小插件
 website: https://nfcat.com
 
 commands:
-  login:
-    description: 登录命令
-    usage: /l 密码
-    aliases:
-      - l
-      - log
-  register:
-    description: 注册命令
-    usage: /r 密码 重复密码
-    aliases:
-      - r
-      - reg
-  changepass:
-    description: 修改密码命令
-    usage: /c 原密码 新密码 重复新密码
-    aliases:
-      - c
   menu:
     description: 命令执行 输入/menu 获取帮助
     usage: /m 参数(?)
     aliases:
       - m
-  nfcat:
-    description: 云服务操作内容
-    usage: /n help
-    aliases:
-      - n
-      - nf
-  shop:
-    description: 商店
-    usage: /shop help
-  bank:
-    description: 银行
-    usage: /bank help
-  card:
-    description: 卡密系统
-    usage: /card help
-  openguishop:
-    description: gui商店
-    usage: /openguishop
-
 
 #permissions:
 #  man.*:
